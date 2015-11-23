@@ -14,6 +14,7 @@ return [
     */
 
     'login'                => 'These credentials do not match our records.',
+    'registration'         => 'please confirmation your reg email.',
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
     'after'                => 'The :attribute must be a date after :date.',

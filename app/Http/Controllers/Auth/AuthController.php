@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class AuthController extends Controller
@@ -98,6 +99,23 @@ class AuthController extends Controller
     }
 
     /**
+     * after auth,check if registration_token null
+     * @param Request $request
+     * @param $user
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function authenticated(Request $request, $user){
+        if($user->registration_token != null){
+            Auth::logout();
+            return redirect($this->loginPath())
+                ->withInput($request->only($this->loginUsername(), 'remember'))
+                ->withErrors([
+                    $this->loginUsername() => trans('validation.registration'),
+                ]);
+        }
+        return redirect()->intended($this->redirectPath());
+    }
+    /**
      * Get the post register / login redirect path.
      *
      * @return string
@@ -106,7 +124,6 @@ class AuthController extends Controller
     {
         return route('home');
     }
-
     /**
      * Get the failed login message.
      *
