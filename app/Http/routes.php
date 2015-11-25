@@ -15,7 +15,10 @@ Route::get('/', [
     'uses' => 'HomeController@index',
     'as'   => 'home'
 ]);
-
+Route::get('/jobs', [
+    'uses' => 'JobsController@testSendJobs',
+    'as'   => 'jobs'
+]);
 // Authentication routes...
 Route::get('login', [
     'uses' => 'Auth\AuthController@getLogin',

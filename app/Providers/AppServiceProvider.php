@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\Queue;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -15,8 +15,12 @@ class AppServiceProvider extends ServiceProvider
     {
         \DB::listen(function($sql, $bindings, $time)
         {
-            \Log::info($sql.','.json_encode($bindings));
+            //\Log::info($sql.','.json_encode($bindings));
             array_unshift($_ENV,$sql.'£¬'.json_encode($bindings));
+        });
+
+        Queue::failing(function ($connection, $job, $data) {
+
         });
     }
 
