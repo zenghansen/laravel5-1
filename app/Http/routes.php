@@ -91,3 +91,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 });
+
+
+Route::get('redis', [
+    'uses' => 'RedisController@index',
+    'as'   => 'redis'
+]);

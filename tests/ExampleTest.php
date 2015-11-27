@@ -19,5 +19,9 @@ class ExampleTest extends TestCase
         $this->visit('/login')
              ->see('Remember me');
     }
+    public function testRedis(){
+        $response = $this->call('GET', '/redis', ['name' => 'Taylor']);
+        var_dump($response);
+    }
 
 }
